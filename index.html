@@ -1,123 +1,52 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Local Storage DB</title>
+		<title>JM Test Zone</title>
 		<script src="phonegap.js"></script>
-
 		<script src="cordova.js"></script>
-		<script src="localstoragedb.js"></script>
 		<style>
-			a{
-				color:black;
-			}
-			a:visited{
-				color:black;
+			body{
+				margin:0px;
+				text-align:center;
+				font-size:20px;
+				font-family:verdana;
 			}
 			.border{
 				outline:1px solid black;
-				width:150px;
-				float:left;
-				margin-right:10px;
-				padding:5px;
+				width:90%;
+				padding:10px;
 				-moz-user-select: -moz-none;
 				-khtml-user-select: none;
 				-webkit-user-select: none;
 				-o-user-select: none;
 				user-select: none;
+				margin: 0 auto;
+				margin-top:20px;
 			}
 			.border:hover{
 				color:white;
 				background-color:black;
 				cursor:pointer;
 			}
-			.imglink:hover{
-				cursor:pointer;
-			}
 		</style>
 	</head>
 	<body>
-		<!--<div onclick="show()">Show values</div>-->
-		<h1>Javascript Database</h1>
-		<div onclick="add()" class="border">ADD VALUE</div>
-		<div onclick="deleteAll()" class="border">DELETE ALL</div>
-		<!--<div onclick="create()">Create Table</div>-->
-		
-		<br><br>
-		<div id="show"></div>
+		<br>
+		<h1>JM Test Zone</h1><br>
+		<div onclick="surf(1)" class="border">Google Link Test</div><br>
+		<div onclick="surf(2)" class="border">Javascript LocalStorageDB</div>
 	</body>
 	<script>
-		// Cridem a una base de dades. Si no existeix, la crea. tot queda guardat a la variable 'lib'
-		//(podem tenir dues variables diferents amb dues bases de dades... i més si volem
-		var lib = new localStorageDB("BaseDeDades", localStorage);
-		
-		// aquesta funció mira si la base de dades és nova, en tal cas.. entra dins del IF. Això pot servir per a crear contingut dins de la base
-		if( lib.isNew() ) {
-			alert("Hem creat una base de dades");
-			
-			// creem una taula anomenada Taula1 amb dos camps, camp1 i camp2
-			lib.createTable("Taula1", ["camp1", "camp2"]);
-			/*
-			// inserim dades a la Taula1
-			lib.insert("Taula1", {camp1: "Pepe", camp2: "elfo"});
-			lib.insert("Taula1", {camp1: "josefa", camp2: "Humano"});
-			*/
-			// fem un commit per aplicar els canvis
-			lib.commit();
-			
-			// sempre que fem create/drop/insert/update/delete s'ha de fer commit
-		}
-		
-		
-		function show(){
-			var test = lib.queryAll("Taula1");
-			
-			var cadena = "<ul>";
-			
-			for (i = 0; i < lib.rowCount("Taula1"); i++) { 
-				cadena = cadena + "<li>" + test[i].camp1 + " <img src='edit.png' height='10px' class='imglink' onclick='editData(" + test[i].ID + ")'> <img src='delete.png' height='10px' class='imglink' onclick='deleteData(" + test[i].ID + ")'><br><br>";
+		function surf(x){
+			switch(x){
+				case 1:
+					location.href = "http://www.google.com";
+				break;
+				
+				case 2:
+					location.href = "Database.html";
+				break;
 			}
-			cadena = cadena + "</ul>";
-			document.getElementById("show").innerHTML = cadena;
-			//alert(cadena);
-			//alert(test[0].camp1);
-			//alert(lib.rowCount("Taula1"));
-		}	
-		
-		function add(){
-			var variable1 = prompt("Value:");
-			//var variable2 = prompt("Segon camp");
-			
-			lib.insert("Taula1", {camp1: variable1, camp2: "xxxx"});
-			lib.commit();
-			show();
 		}
-		
-		function deleteData(x){
-			//alert(x);
-			lib.deleteRows("Taula1", {ID: x});
-			lib.commit();
-			
-			show();
-		}
-		function deleteAll(){
-			lib.truncate("Taula1");
-			lib.commit();
-			
-			show();
-		}
-		function editData(x){
-			//alert(x);
-			lib.update("Taula1", {ID: x}, function(row) {
-				var newvalue = prompt("New value:");
-				row.camp1 = newvalue;
-
-				// the update callback function returns to the modified record
-				return row;
-			});
-			lib.commit();
-			
-			show();
-		}
-		show();
 	</script>
 </html>
