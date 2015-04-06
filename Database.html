@@ -81,7 +81,7 @@
 			var cadena = "<ul>";
 			
 			for (i = 0; i < lib.rowCount("Taula1"); i++) { 
-				cadena = cadena + "<li>" + test[i].camp1 + " <img src='edit.png' height='20px' class='imglink' onclick='editData(" + test[i].ID + ")'> <img src='delete.png' height='20px' class='imglink' onclick='deleteData(" + test[i].ID + ")'><br><br>";
+				cadena = cadena + "<li><span>" + test[i].camp1 + " </span><img src='edit.png' height='20px' class='imglink' onclick='editData(" + test[i].ID + ")'> <img src='delete.png' height='20px' class='imglink' onclick='deleteData(" + test[i].ID + ")'><br><br>";
 			}
 			cadena = cadena + "</ul>";
 			document.getElementById("show").innerHTML = cadena;
